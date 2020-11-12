@@ -26,8 +26,50 @@ public class RedisLock extends BaseRedisLock {
     @Resource
     protected RedisTemplate<String, String> redisTemplate;
 
+
     @Override
-    public boolean tryLock(String key, String value, Long expireTime)throws InterruptedException {
+    @Deprecated
+    public void lock() {
+        try {
+            int wiatTime = 1;//没有获取锁等待时间
+            int count = 0;//等待次数
+            String synKey = redisLockProperties.getSynKey() + "#" + Thread.currentThread().getId();
+            String synValue = redisLockProperties.getSynValue() + "#" + Thread.currentThread().getId();
+            while (!tryLock(synKey,synValue,
+                    redisLockProperties.getExpireTime())) {
+                int sleepTime = (wiatTime << count) * 1000;
+                Thread.sleep(sleepTime);
+                count ++;
+            }
+        }catch (InterruptedException e) {
+           throw new RuntimeException(e.getMessage());
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    @Deprecated
+    public void unlock() {
+        try {
+            int wiatTime = 1;//没有获取锁等待时间
+            int count = 0;//等待次数
+            String synKey = redisLockProperties.getSynKey() + "#" + Thread.currentThread().getId();
+            String synValue = redisLockProperties.getSynValue() + "#" + Thread.currentThread().getId();
+            while (!unLock(synKey,synValue)) {
+                int sleepTime = (wiatTime << count) * 1000;
+                Thread.sleep(sleepTime);
+                count ++;
+            }
+        }catch (InterruptedException e) {
+            throw new RuntimeException(e.getMessage());
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public boolean tryLock(String key, String value, Long expireTime)throws RuntimeException {
         boolean ret = false;
         try {
             if (expireTime == null) {
@@ -56,7 +98,7 @@ public class RedisLock extends BaseRedisLock {
     }
 
     @Override
-    public boolean unLock(String key, String value)throws InterruptedException {
+    public boolean unLock(String key, String value)throws RuntimeException {
         boolean ret = false;
         try {
             String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";

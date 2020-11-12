@@ -35,7 +35,7 @@ public abstract class BaseRedisLock implements Lock {
      * @auhtor chenyx
      * @date 2020-11-09
      * */
-    public boolean tryLock(String key, String value,Long expireTime)throws InterruptedException {
+    public boolean tryLock(String key, String value,Long expireTime)throws RuntimeException {
         return false;
     }
 
@@ -44,7 +44,7 @@ public abstract class BaseRedisLock implements Lock {
      * @auhtor chenyx
      * @date 2020-11-09
      * */
-    public boolean unLock(String key, String value)throws InterruptedException {
+    public boolean unLock(String key, String value)throws RuntimeException {
         return false;
     }
     @Override

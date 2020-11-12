@@ -22,10 +22,16 @@ class RedisLockTest {
             return;
         }
         System.out.print("result:{}" + result + ",业务处理中。。。。。");
-        redisLock.unLock("key1","2");
+       // redisLock.unLock("key1","2");
     }
 
     @Test
     void unLock() {
+    }
+
+    @Test
+    void testLock() {
+        redisLock.lock();
+        redisLock.lock();
     }
 }

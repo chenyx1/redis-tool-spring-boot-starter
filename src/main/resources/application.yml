@@ -9,16 +9,11 @@ spring:
         - VPN.*
         - ingress.*
       preferred-networks: 192.168.*,10.10.11.*
-  #      preferred-networks: 182.38.*
-  #      preferred-networks: 162.38.*
   redis:
-    host: XXXXXXXX
-    port: 6379
-    lettuce:
-      pool:
-        max-active: 100
-        max-idle: 50
-        max-wait: -1ms
+    password: XXXXXX
+    cluster:
+      nodes: XXXXXXXXXX
+      max-redirects: 6
     lock:
       expire-time: 30
       time-out: 60
