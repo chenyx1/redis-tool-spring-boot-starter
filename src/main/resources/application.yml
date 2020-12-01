@@ -10,10 +10,12 @@ spring:
         - ingress.*
       preferred-networks: 192.168.*,10.10.11.*
   redis:
-    password: XXXXXX
+    password: 85RiTN6mP412TI7w
     cluster:
-      nodes: XXXXXXXXXX
+      nodes: 10.10.11.104:7000,10.10.11.104:7001,10.10.11.104:7002,10.10.11.104:7003,10.10.11.104:7004,10.10.11.104:7005
       max-redirects: 6
     lock:
       expire-time: 30
       time-out: 60
+
+

@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <fastjson.version>1.2.75</fastjson.version>
+        <redisson-spring-boot.version>3.13.6</redisson-spring-boot.version>
     </properties>
 
     <dependencies>
@@ -72,5 +73,13 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>${redisson-spring-boot.version}</version>
+        </dependency>
+
     </dependencies>
 </project>
